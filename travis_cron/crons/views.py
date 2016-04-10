@@ -32,7 +32,7 @@ def new(request):
         entry.full_clean()
         entry.save()
 
-        state = '%030x' % random.randrange(256**15)
+        state = '{0:030x}'.format(random.randrange(256**15))
         request.session['state'] = state
         request.session['entry_id'] = entry.id
         return HttpResponseRedirect('https://github.com/login/oauth/authorize?client_id={}&scope=public_repo&state={}'
@@ -79,7 +79,7 @@ def callback(request):
             entry.travis_token = travis_response['access_token']
             entry.save()
 
-            mail_message = "%s - %s\n\n%s\n\nSpecial requests:\n%s\n" % (entry.gh_project, entry.cronjob.description, 
+            mail_message = "{0!s} - {1!s}\n\n{2!s}\n\nSpecial requests:\n{3!s}\n".format(entry.gh_project, entry.cronjob.description, 
                                                                          entry.motivation, entry.special_requests or 'None :)')
             mail_admins('New entry!', mail_message)
 
