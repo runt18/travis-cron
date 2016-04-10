@@ -35,7 +35,7 @@ def new(request):
         state = '%030x' % random.randrange(256**15)
         request.session['state'] = state
         request.session['entry_id'] = entry.id
-        return HttpResponseRedirect('https://github.com/login/oauth/authorize?client_id={}&scope=public_repo&state={}'
+        return HttpResponseRedirect('https://github.com/login/oauth/authorize?client_id={0}&scope=public_repo&state={1}'
                                     .format(settings.GITHUB_CLIENT_ID, state))
 
     except KeyError:
